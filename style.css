@@ -10,6 +10,15 @@ body {
   }
   
 
+.diss {
+    text-align: center;
+    font-size: 30px;
+    font-family: fantasy;
+    color: pink;
+    background-image: url("https://en.wikipedia.org/wiki/Rainbow_flag_%28LGBT%29#/media/File:Gay_Pride_Flag.svg");
+}
+
+
 
 
 p {
