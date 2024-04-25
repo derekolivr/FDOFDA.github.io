@@ -1,8 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const chart = LightweightCharts.createChart(
-        document.getElementById('container')
-    );
-
+const container = document.getElementById('container');
 const stockchart = LightweightCharts.createChart(container);
 
 const candlestickSeries = stockchart.addCandlestickSeries({
@@ -52,4 +48,3 @@ getTodos('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol
         console.log('Data:', data);
     }
 });
-})
