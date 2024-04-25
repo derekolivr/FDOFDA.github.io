@@ -1,3 +1,6 @@
+
+
+
 const getTodos = (resource, callback) => {
     const request = new XMLHttpRequest();
 
@@ -20,3 +23,5 @@ const getTodos = (resource, callback) => {
 getTodos('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&month=2009-01&outputsize=full&apikey=demo', (err, data) => {
     console.log(data);
 });
+
+
