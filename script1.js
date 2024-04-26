@@ -1,8 +1,10 @@
 const container = document.getElementById('container');
 const candlechart = LightweightCharts.createChart(container, {
     layout: {
+        textColor: '#bbbbbb',
         background: {color: '#222'}
     }
+
 });
 
 const stockchart = candlechart.addCandlestickSeries({
@@ -13,6 +15,18 @@ const stockchart = candlechart.addCandlestickSeries({
     wickDownColor: '#ef5350',
     
 });
+
+fetch('https://.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&month=2009-01&outputsize=full&apikey=demo').then((response) => {
+    console.log('success', response);
+    return response.json;
+}).then((data) => {
+    console.log(data);
+}).catch((error) => {
+    console.log('failed', error);
+})
+
+
+
 
 stockchart.setData([
     { time: '2018-12-22', open: 75.16, high: 82.84, low: 36.16, close: 45.72 },
@@ -30,13 +44,34 @@ stockchart.setData([
 
 
 
-const getTodos = (resource, callback) => {
+
+
+
+
+
+
+
+
+
+
+
+
+/* const getTodos = (resource, callback) => {
     const request = new XMLHttpRequest();
 
     request.addEventListener('readystatechange', () =>{
         if (request.readyState === 4 && request.status === 200) {
             const data = JSON.parse(request.responseText);
             callback(null, data);
+
+
+
+
+
+
+
+
+
         } else if (request.readyState === 4) {
             callback('Could not fetch the data', null);
         }
@@ -53,3 +88,4 @@ getTodos('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol
         console.log('Data:', data);
     }
 });
+*/
