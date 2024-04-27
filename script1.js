@@ -14,27 +14,53 @@ const stockchart = candlechart.addCandlestickSeries({
     wickDownColor: '#ef5350',
 });
 
-fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo')
+generateChart = (apikey) => {
+
+    fetch(apikey)
     .then((response) => response.json())
     .then(data => {
         const timeSeries = data['Time Series (5min)'];
-        const chartData = Object.keys(timeSeries)
-            .map((dateTime) => {
-                const date = new Date(dateTime); // Create a Date object from the datetime string
-                const unixTimestamp = Math.floor(date.getTime() / 1000);
+        const chartData = Object.keys(timeSeries).map((dateTime) => {
+            const date = new Date(dateTime);
+            const unixTimestamp = Math.floor(date.getTime() / 1000);
 
-                return {
-                    time: unixTimestamp,
-                    open: parseFloat(timeSeries[dateTime]['1. open']),
-                    high: parseFloat(timeSeries[dateTime]['2. high']),
-                    low: parseFloat(timeSeries[dateTime]['3. low']),
-                    close: parseFloat(timeSeries[dateTime]['4. close']),
-                };
-            })
-            .sort((a, b) => a.time - b.time); // Sort data points by time in ascending order
+            return {
+                time: unixTimestamp,
+                open: parseFloat(timeSeries[dateTime]['1. open']),
+                high: parseFloat(timeSeries[dateTime]['2. high']),
+                low: parseFloat(timeSeries[dateTime]['3. low']),
+                close: parseFloat(timeSeries[dateTime]['4. close']),
+            };
+        })
+        .sort((a, b) => a.time - b.time); // Sort data points by time in ascending order
 
         stockchart.setData(chartData);
     })
     .catch((error) => {
         console.log('Error:', error);
     });
+
+}
+
+generateChart('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo');
+
+var radios = document.forms["time_form"].elements["period"];
+for(var i = 0, max = radios.length; i < max; i++) {
+    radios[i].onclick = function() {
+        // Base URL without query parameters
+        const baseUrl = 'https://www.alphavantage.co/query';
+
+        const params = new URLSearchParams({
+            function: 'TIME_SERIES_INTRADAY',
+            symbol: 'IBM',
+            interval: this.value,
+            outputsize: 'full',
+            apikey: 'demo'
+        });
+
+        const updatedUrl = baseUrl + '?' + params.toString();
+        console.log(updatedUrl);
+
+        generateChart(updatedUrl);
+    }
+}

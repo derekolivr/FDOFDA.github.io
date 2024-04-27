@@ -11,22 +11,30 @@ body {
   
 
 .Chart-size {
-  
-  padding-left: 30%;
-  padding-top: 5%;
 
-  width: 100%;
-  height: 100%;
+  margin-left: 30%;
+  margin-top: 5%;
 
+  width: 800px;
+  height: 800px;
+  border: 4px;
+  border-color: aqua;
+  background-color: aliceblue;
 
+  #time_form {
+    width: 200px;
+    height: 50px;
+    background-color: aqua;
+
+  }
 
   #container { 
 
     position: relative;
-    width: 70%;
-    height: 70%;
+    width: 800px;
+    height: 600px;
   
-    }
+  }
     
 }
 
