@@ -15,11 +15,21 @@ const stockchart = candlechart.addCandlestickSeries({
 });
 
 generateChart = (apikey) => {
-
     fetch(apikey)
     .then((response) => response.json())
     .then(data => {
-        const timeSeries = data['Time Series (5min)'];
+        // Dynamically extract the interval from the API URL
+        const urlParams = new URL(apikey);
+        const interval = urlParams.searchParams.get("interval");
+
+        const timeSeriesKey = `Time Series (${interval})`;
+
+        const timeSeries = data[timeSeriesKey];
+        if (!timeSeries) {
+            console.error("Time series data not found for the specified interval.");
+            return;
+        }
+
         const chartData = Object.keys(timeSeries).map((dateTime) => {
             const date = new Date(dateTime);
             const unixTimestamp = Math.floor(date.getTime() / 1000);
@@ -32,14 +42,13 @@ generateChart = (apikey) => {
                 close: parseFloat(timeSeries[dateTime]['4. close']),
             };
         })
-        .sort((a, b) => a.time - b.time); // Sort data points by time in ascending order
+        .sort((a, b) => a.time - b.time);
 
         stockchart.setData(chartData);
     })
     .catch((error) => {
         console.log('Error:', error);
     });
-
 }
 
 generateChart('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo');
@@ -64,3 +73,4 @@ for(var i = 0, max = radios.length; i < max; i++) {
         generateChart(updatedUrl);
     }
 }
+
