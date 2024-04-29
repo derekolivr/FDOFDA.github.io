@@ -34,10 +34,9 @@ generateChart = (apiurl, user_hour = "All", user_day = "All") => {
             const hour = date.getUTCHours();
             const day = date.getUTCDate();
 
-            console.log(hour);
-            console.log(day);
+            // console.log(hour);
+            // console.log(day);
 
-            // Check all conditions and return the appropriate structure or undefined
             if (("All" === user_hour && "All" === user_day) ||
                 ("All" === user_hour && day == user_day) ||
                 (hour == user_hour && "All" === user_day) ||
@@ -50,8 +49,8 @@ generateChart = (apiurl, user_hour = "All", user_day = "All") => {
                     close: parseFloat(timeSeries[dateTime]['4. close']),
                 };
             }
-        }).filter(item => item !== undefined) // Ensure no undefined entries
-        .sort((a, b) => a.time - b.time); // Sort entries by time
+        }).filter(item => item !== undefined)
+        .sort((a, b) => a.time - b.time);
 
         if (chartData.length > 0) {
             stockchart.setData(chartData);
