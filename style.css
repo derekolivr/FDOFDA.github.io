@@ -18,13 +18,14 @@ body {
   width: 800px;
   height: 800px;
   border: 4px;
-  border-color: aqua;
   background-color: aliceblue;
 
   #time_form {
-    width: 200px;
-    height: 50px;
-    background-color: aqua;
+    margin-top: 20px;
+    
+    width: 230px;
+    height: 30px;
+    background-color: grey;
 
   }
 
@@ -36,6 +37,33 @@ body {
   
   }
     
+}
+
+.dropbtn {
+  width: 150px;
+  background-color: aquamarine;
+  border-color: rgb(56, 100, 100);
+  font-size: 20px;
+}
+
+.dropdown_menu {
+  border: 2px solid gray;
+  width:150px
+}
+
+.dropdown_menu a{
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  text-decoration: none;
+  color: blue;
+  line-height: 30px;
+  border: ;
+
+}
+
+.hide {
+  display: none;
 }
 
 

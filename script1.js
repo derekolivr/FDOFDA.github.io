@@ -74,3 +74,8 @@ for(var i = 0, max = radios.length; i < max; i++) {
     }
 }
 
+const dropdownBtn = document.querySelector(".dropbtn");
+const dropdownMenu = document.querySelector(".dropdown_menu")
+dropdownBtn.addEventListener('click', () => {
+    dropdownMenu.classList.toggle('hide');
+})
