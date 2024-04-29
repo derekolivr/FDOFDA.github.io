@@ -2,8 +2,13 @@ const container = document.getElementById('container');
 const candlechart = LightweightCharts.createChart(container, {
     layout: {
         textColor: '#bbbbbb',
-        background: {color: '#222'}
-    }
+        background: {color: "#1f1f1f"}
+        
+    },
+    timeScale: {
+        timeVisible: true,
+        secondsVisible: true,
+    },
 });
 
 const stockchart = candlechart.addCandlestickSeries({
@@ -34,13 +39,14 @@ generateChart = (apiurl, user_hour = "All", user_day = "All") => {
             const hour = date.getUTCHours();
             const day = date.getUTCDate();
 
-            // console.log(hour);
-            // console.log(day);
-
             if (("All" === user_hour && "All" === user_day) ||
                 ("All" === user_hour && day == user_day) ||
                 (hour == user_hour && "All" === user_day) ||
                 (hour == user_hour && day == user_day)) {
+                
+                    console.log(day);
+                    console.log(hour);
+                
                 return {
                     time: unixTimestamp,
                     open: parseFloat(timeSeries[dateTime]['1. open']),
@@ -87,22 +93,29 @@ for(var i = 0, max = radios.length; i < max; i++) {
     }
 }
 
-const dropdownBtn = document.querySelector(".dropbtn");
-const dropdownMenu = document.querySelector(".dropdown_menu")
-dropdownBtn.addEventListener('click', () => {
-    dropdownMenu.classList.toggle('hide');
-})
+document.querySelectorAll('.dropdown').forEach(dropdown => {
+    const dropdownBtn = dropdown.querySelector('.dropbtn');
+    const dropdownMenu = dropdown.querySelector('.dropdown_menu');
 
-document.querySelectorAll('.dropdown_menu a').forEach(item => {
-    item.addEventListener('click', function(event) {
-      event.preventDefault(); // Prevent default link behavior
-      const hr = this.getAttribute('hour');
-      const element = document.getElementsByClassName("dropbtn")[0];
-      element.innerHTML = "Hour " + hr;
-
-      generateChart("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo", hr, "All");
-
-
-
+    dropdownBtn.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('hide');
     });
-  });
+
+    dropdown.querySelectorAll('.dropdown_menu a').forEach(item => {
+        item.addEventListener('click', function(event) {
+            event.preventDefault();
+            const hr = this.getAttribute('hour');
+            const day = this.getAttribute('day');
+
+            if (day) {
+                dropdownBtn.innerHTML = "Day " + day;
+            } else if (hr) {
+                dropdownBtn.innerHTML = "Hour " + hr;
+            }
+
+            generateChart("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo", hr, day);
+        });
+    });
+});
+
+
