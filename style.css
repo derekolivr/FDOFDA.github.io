@@ -67,19 +67,30 @@ body {
   background-color: rgb(13, 13, 13);
 
   #time_form {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin: auto;
     margin-top: 60px;
     width: fit-content;
     height: fit-content;
-    background-color: rgb(167, 167, 167);
+    background-color: rgb(13, 13, 13);
     display: flex;
     align-content: center;
-
-
   }
 
-  #chart_title {
+  #radio_options {
+   margin:auto;
+   }
+
+   #small_heading{
     font-size: 30px;
+    color: aquamarine;
+    margin-right: 20px;
+    
+   }
+  
+
+  #chart_title {
+    font-size: 50px;
     font-family:sans-serif;
     font-weight: 100px;
     margin:auto;
@@ -91,7 +102,7 @@ body {
 
   }
 
-  #container { 
+  #container {
 
     padding-top: 30px;
     position: relative;
@@ -102,7 +113,7 @@ body {
   }
 
   #container2 { 
-    padding-top: 180px;
+    padding-top: 50px;
     position: relative;
     width: 1000px;
     height: 600px;
@@ -110,6 +121,7 @@ body {
   
   }
 }
+
 
 .dropdown {
   display: inline-block;

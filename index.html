@@ -30,17 +30,17 @@
         
                 <form id="time_form" name="time_form">
 
-                    <h3>Choose time interval:</h3>
+                    <h3 id="small_heading">Time interval: </h3>
 
-                    <div>
+                    <div id="radio_options">
                         <!-- <input type="radio" id="timePeriod1" name="period" value="1min" />
                         <label for="timePeriod1">1min</label> -->
                 
                         <input type="radio" id="timePeriod2" name="period" value="5min" checked/>
-                        <label for="timePeriod2">5min</label>
+                        <label for="timePeriod2" style="font-size: 30px; color:darkgreen;">5min</label>
                 
                         <input type="radio" id="timePeriod3" name="period" value="15min"/>
-                        <label for="timePeriod3">15min</label>
+                        <label for="timePeriod3" style="font-size: 30px; color:darkgreen;">15min</label>
                     </div>
                 </form>
         
@@ -117,7 +117,12 @@
                             <a href="#" hour = 24> Hour 24</a>    
                         </div>
                 </div> -->
-        
+
+                    <div>
+                        <h1 id="chart_title">
+                            Hourly Data
+                        </h1>
+                    </div>
         
                     <div id="container2"></div>
                     </div>
