@@ -56,13 +56,13 @@ body {
 
 
 
-.Chart-size {
+.Main_Body {
 
   margin: auto;
   position: relative;
 
   width: 1200px;
-  height: 1600px;
+  height: 2800px;
   border: 4px;
   background-color: rgb(13, 13, 13);
 
@@ -77,14 +77,14 @@ body {
     align-content: center;
   }
 
-  #radio_options {
-   margin:auto;
-   }
 
-   #small_heading{
+
+  #small_heading{
     font-size: 30px;
     color: aquamarine;
     margin-right: 20px;
+    margin-left: 10px;
+
     
    }
   
@@ -107,7 +107,7 @@ body {
     padding-top: 30px;
     position: relative;
     width: 1000px;
-    height: 600px;
+    height: 800px;
     margin: auto;
   
   }
@@ -116,10 +116,30 @@ body {
     padding-top: 50px;
     position: relative;
     width: 1000px;
-    height: 600px;
+    height: 800px;
     margin: auto;
   
   }
+}
+
+#radio_options {
+  margin:auto;
+  padding: 10px;
+  background-color: rgb(1, 2, 39);
+  border-radius: 10px;
+}
+
+input[type="radio"] {
+
+  display: inline-block;
+  cursor: pointer;
+  transform: scale(1);
+  opacity: 0.8;
+  color: aqua;
+}
+
+input[type="radio"]:hover {
+  opacity: 1;
 }
 
 
@@ -166,6 +186,20 @@ body {
 
 }
 
+.image_box {
+  width:300px;
+  height:300px;
+  display: flex; /* Uses Flexbox to center the image in the box */
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+
+}
+
+.cute_img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
 
 
 p {
