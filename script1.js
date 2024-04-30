@@ -43,9 +43,7 @@ generateChart = (apiurl, user_hour = "All", user_day = "All") => {
                 ("All" === user_hour && day == user_day) ||
                 (hour == user_hour && "All" === user_day) ||
                 (hour == user_hour && day == user_day)) {
-                
-                    console.log(day);
-                    console.log(hour);
+            
                 
                 return {
                     time: unixTimestamp,
@@ -106,6 +104,7 @@ document.querySelectorAll('.dropdown').forEach(dropdown => {
             event.preventDefault();
             const hr = this.getAttribute('hour');
             const day = this.getAttribute('day');
+            console.log(hr);
 
             if (day) {
                 dropdownBtn.innerHTML = "Day " + day;
@@ -119,3 +118,88 @@ document.querySelectorAll('.dropdown').forEach(dropdown => {
 });
 
 
+const container2 = document.getElementById('container2');
+const candlechart2 = LightweightCharts.createChart(container2, {
+    layout: {
+        textColor: '#bbbbbb',
+        background: {color: "#1f1f1f"}
+        
+    },
+    timeScale: {
+        timeVisible: true,
+        secondsVisible: true,
+    },
+});
+
+const stockchart2 = candlechart2.addCandlestickSeries({
+    upColor: '#26a69a',
+    downColor: '#ef5350',
+    borderVisible: true,
+    wickUpColor: '#26a69a',
+    wickDownColor: '#ef5350',
+});
+
+
+generateChart2 = (apiurl) => {
+    fetch(apiurl)
+    .then((response) => response.json())
+    .then(data => {
+        const urlParams = new URL(apiurl);
+        const interval = urlParams.searchParams.get("interval");
+        const timeSeriesKey = `Time Series (${interval})`;
+        const timeSeries = data[timeSeriesKey];
+
+        if (!timeSeries) {
+            console.error("Time series data not found for the specified interval.");
+            return;
+        }
+
+
+
+
+        const hourlyData = {};
+        Object.keys(timeSeries).forEach(dateTime => {
+            const date = new Date(dateTime);
+            const unixTimestamp = Math.floor(date.getTime() / 1000);
+            const hour = date.getUTCHours();
+            const day = date.getUTCDate();
+
+
+            const hourKey = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${day} ${hour}:00:00`;
+
+            if (!hourlyData[hourKey]) {
+                hourlyData[hourKey] = {
+                    open: parseFloat(timeSeries[dateTime]['1. open']),
+                    high: parseFloat(timeSeries[dateTime]['2. high']),
+                    low: parseFloat(timeSeries[dateTime]['3. low']),
+                    close: parseFloat(timeSeries[dateTime]['4. close']),
+                    firstTimestamp: unixTimestamp
+                };
+            } else {
+                hourlyData[hourKey].high = Math.max(hourlyData[hourKey].high, parseFloat(timeSeries[dateTime]['2. high']));
+                hourlyData[hourKey].low = Math.min(hourlyData[hourKey].low, parseFloat(timeSeries[dateTime]['3. low']));
+                hourlyData[hourKey].close = parseFloat(timeSeries[dateTime]['4. close']);
+            }
+        });
+
+        const chartData = Object.keys(hourlyData).map(key => ({
+            time: hourlyData[key].firstTimestamp,
+            open: hourlyData[key].open,
+            high: hourlyData[key].high,
+            low: hourlyData[key].low,
+            close: hourlyData[key].close,
+        })).sort((a, b) => a.time - b.time);
+
+        if (chartData.length > 0) {
+            stockchart.setData(chartData);
+        } else {
+            console.log("No data available for the selected filters.");
+        }
+    })
+    .catch((error) => {
+        console.log('Error:', error);
+    });
+}
+
+
+generateChart2('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo');

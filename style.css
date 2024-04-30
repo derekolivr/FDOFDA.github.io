@@ -1,6 +1,7 @@
 body {
     background: #222222;
     font-family: 'Open Sans', arial, sans-serif;
+    margin: 0;
   }
   
   * {
@@ -8,15 +9,59 @@ body {
     -webkit-box-sizing: border-box; /* Safari/Chrome/iOS/Android */
     box-sizing: border-box; /* IE */
   }
+
+  .wrapper {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    perspective: 10px;
+  }
   
+  header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    transform-style: preserve-3d;
+    z-index: -1;
+  }
+  
+    
+  .background{
+    position: fixed;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+    z-index: -1;
+    transform: translateZ(-10px) scale(2);
+    opacity: 0.6;
+  }
+  
+  .title {
+    font-size: 120px;
+    color: white;
+    text-shadow: 0 0 10px black;
+    font-family: 'Good Times Rg', sans-serif;
+    font-weight: light;
+    color: rgb(233, 233, 233);
+  }
+  
+  section {
+    padding-top: 20px;
+    background-color: #191919;
+  }
+
+
 
 .Chart-size {
 
-  margin-left: 30%;
-  margin-top: 5%;
+  margin: auto;
+  position: relative;
 
-  width: 800px;
-  height: 800px;
+  width: 1200px;
+  height: 1600px;
   border: 4px;
   background-color: aliceblue;
 
@@ -32,11 +77,18 @@ body {
   #container { 
 
     position: relative;
-    width: 800px;
+    width: 1000px;
     height: 600px;
   
   }
-    
+
+  #container2 { 
+    padding-top: 130px;
+    position: relative;
+    width: 1000px;
+    height: 600px;
+  
+  }
 }
 
 .dropdown {
@@ -81,6 +133,7 @@ body {
   opacity: 0%;
 
 }
+
 
 
 p {
