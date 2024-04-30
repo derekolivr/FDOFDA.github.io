@@ -1,5 +1,5 @@
 body {
-    background: #222222;
+    background: rgb(0, 39, 75);
     font-family: 'Open Sans', arial, sans-serif;
     margin: 0;
   }
@@ -46,11 +46,12 @@ body {
     font-family: 'Good Times Rg', sans-serif;
     font-weight: light;
     color: rgb(233, 233, 233);
+    
   }
   
   section {
     padding-top: 20px;
-    background-color: #191919;
+    background-color: #0e0e0e;
   }
 
 
@@ -63,30 +64,49 @@ body {
   width: 1200px;
   height: 1600px;
   border: 4px;
-  background-color: aliceblue;
+  background-color: rgb(13, 13, 13);
 
   #time_form {
-    margin-top: 20px;
-    
-    width: 230px;
-    height: 30px;
-    background-color: grey;
+    margin: auto;
+    margin-top: 60px;
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(167, 167, 167);
+    display: flex;
+    align-content: center;
+
+
+  }
+
+  #chart_title {
+    font-size: 30px;
+    font-family:sans-serif;
+    font-weight: 100px;
+    margin:auto;
+    margin-top: 60px;
+    color: rgb(50, 150, 150);
+    display: flex;
+    justify-content: center;
+
 
   }
 
   #container { 
 
+    padding-top: 30px;
     position: relative;
     width: 1000px;
     height: 600px;
+    margin: auto;
   
   }
 
   #container2 { 
-    padding-top: 130px;
+    padding-top: 180px;
     position: relative;
     width: 1000px;
     height: 600px;
+    margin: auto;
   
   }
 }

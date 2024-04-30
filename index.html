@@ -13,18 +13,28 @@
     <div class="wrapper">
         <header>
           <img src="images/stock-gpt.webp" class="background">
-          <h1 class="title">Stock Track</h1>
+          <h1 class="title">Stock <span style="text-decoration: underline;">Track.</span></h1>
         </header>
         <section>
             <div class="Chart-size">
+                <div>
+                    <h1 id="chart_title">
+                        Intraday Price Movements
+                    </h1>
+                </div>
+
                 <div id="container"
                 ></div>
         
+
         
                 <form id="time_form" name="time_form">
+
+                    <h3>Choose time interval:</h3>
+
                     <div>
-                        <input type="radio" id="timePeriod1" name="period" value="1min" />
-                        <label for="timePeriod1">1min</label>
+                        <!-- <input type="radio" id="timePeriod1" name="period" value="1min" />
+                        <label for="timePeriod1">1min</label> -->
                 
                         <input type="radio" id="timePeriod2" name="period" value="5min" checked/>
                         <label for="timePeriod2">5min</label>

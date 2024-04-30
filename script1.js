@@ -91,31 +91,31 @@ for(var i = 0, max = radios.length; i < max; i++) {
     }
 }
 
-document.querySelectorAll('.dropdown').forEach(dropdown => {
-    const dropdownBtn = dropdown.querySelector('.dropbtn');
-    const dropdownMenu = dropdown.querySelector('.dropdown_menu');
+// document.querySelectorAll('.dropdown').forEach(dropdown => {
+//     const dropdownBtn = dropdown.querySelector('.dropbtn');
+//     const dropdownMenu = dropdown.querySelector('.dropdown_menu');
 
-    dropdownBtn.addEventListener('click', () => {
-        dropdownMenu.classList.toggle('hide');
-    });
+//     dropdownBtn.addEventListener('click', () => {
+//         dropdownMenu.classList.toggle('hide');
+//     });
 
-    dropdown.querySelectorAll('.dropdown_menu a').forEach(item => {
-        item.addEventListener('click', function(event) {
-            event.preventDefault();
-            const hr = this.getAttribute('hour');
-            const day = this.getAttribute('day');
-            console.log(hr);
+//     dropdown.querySelectorAll('.dropdown_menu a').forEach(item => {
+//         item.addEventListener('click', function(event) {
+//             event.preventDefault();
+//             const hr = this.getAttribute('hour');
+//             const day = this.getAttribute('day');
+//             console.log(hr);
 
-            if (day) {
-                dropdownBtn.innerHTML = "Day " + day;
-            } else if (hr) {
-                dropdownBtn.innerHTML = "Hour " + hr;
-            }
+//             if (day) {
+//                 dropdownBtn.innerHTML = "Day " + day;
+//             } else if (hr) {
+//                 dropdownBtn.innerHTML = "Hour " + hr;
+//             }
 
-            generateChart("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo", hr, day);
-        });
-    });
-});
+//             generateChart("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo", hr, day);
+//         });
+//     });
+// });
 
 
 const container2 = document.getElementById('container2');
@@ -138,6 +138,9 @@ const stockchart2 = candlechart2.addCandlestickSeries({
     wickUpColor: '#26a69a',
     wickDownColor: '#ef5350',
 });
+
+
+generateChart
 
 
 generateChart2 = (apiurl) => {
@@ -191,7 +194,7 @@ generateChart2 = (apiurl) => {
         })).sort((a, b) => a.time - b.time);
 
         if (chartData.length > 0) {
-            stockchart.setData(chartData);
+            stockchart2.setData(chartData);
         } else {
             console.log("No data available for the selected filters.");
         }
@@ -200,6 +203,5 @@ generateChart2 = (apiurl) => {
         console.log('Error:', error);
     });
 }
-
 
 generateChart2('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo');
