@@ -62,7 +62,7 @@ body {
   position: relative;
 
   width: 1200px;
-  height: 2800px;
+  height: 2600px;
   border: 4px;
   background-color: rgb(13, 13, 13);
 
@@ -115,7 +115,7 @@ body {
   #container2 { 
     padding-top: 50px;
     position: relative;
-    width: 1000px;
+    width: 1200px;
     height: 800px;
     margin: auto;
   
