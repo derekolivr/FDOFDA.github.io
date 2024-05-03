@@ -12,12 +12,56 @@ const candlechart = LightweightCharts.createChart(container, {
 });
 
 const stockchart = candlechart.addCandlestickSeries({
-    upColor: '#26a69a',
-    downColor: '#ef5350',
-    borderVisible: true,
-    wickUpColor: '#26a69a',
-    wickDownColor: '#ef5350',
+    upColor: '#4672d2',
+    downColor: '#cf4358',
+    borderVisible: false,
+    wickUpColor: '#4672d2',
+    wickDownColor: '#cf4358',
+
+    scaleMargins: {
+        top: 0,       
+        bottom: 0.3
+    }
 });
+
+stockchart.applyOptions({
+    priceScale: {
+        autoScale: false
+    }
+    
+});
+
+stockchart.priceScale().applyOptions({
+    scaleMargins: {
+        top: 0.1,
+        bottom: 0.4,
+    },
+});
+
+
+const volumeSeries = candlechart.addHistogramSeries({
+    color: 'rgba(36, 171, 76, 0.3)',
+    priceFormat: {
+        type: 'volume',
+    },
+    priceScaleId: '',
+    crosshairMarkerVisible: true,
+    invertScale: false,
+    alignLabels: true,
+
+    priceScale: {
+        autoScale: false
+        
+    }
+});
+
+volumeSeries.priceScale().applyOptions({
+    scaleMargins: {
+        top: 0.7, 
+        bottom: 0,
+    },
+});
+
 
 generateChart = (apiurl, user_hour = "All", user_day = "All") => {
     fetch(apiurl)
@@ -51,13 +95,26 @@ generateChart = (apiurl, user_hour = "All", user_day = "All") => {
                     high: parseFloat(timeSeries[dateTime]['2. high']),
                     low: parseFloat(timeSeries[dateTime]['3. low']),
                     close: parseFloat(timeSeries[dateTime]['4. close']),
+                    volume: parseFloat(timeSeries[dateTime]['5. volume'])
                 };
             }
         }).filter(item => item !== undefined)
         .sort((a, b) => a.time - b.time);
 
         if (chartData.length > 0) {
-            stockchart.setData(chartData);
+            stockchart.setData(chartData.map(item => ({
+                time: item.time,
+                open: item.open,
+                high: item.high,
+                low: item.low,
+                close: item.close
+            })));
+        
+            volumeSeries.setData(chartData.map(item => ({
+                time: item.time,
+                value: item.volume
+            })));
+
         } else {
             console.log("No data available for the selected filters.");
         }
@@ -68,7 +125,7 @@ generateChart = (apiurl, user_hour = "All", user_day = "All") => {
 }
 
 
-generateChart('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo');
+generateChart('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&month=2009-01&outputsize=full&apikey=demo');
 
 var radios = document.forms["time_form"].elements["period"];
 for(var i = 0, max = radios.length; i < max; i++) {
@@ -91,32 +148,6 @@ for(var i = 0, max = radios.length; i < max; i++) {
     }
 }
 
-// document.querySelectorAll('.dropdown').forEach(dropdown => {
-//     const dropdownBtn = dropdown.querySelector('.dropbtn');
-//     const dropdownMenu = dropdown.querySelector('.dropdown_menu');
-
-//     dropdownBtn.addEventListener('click', () => {
-//         dropdownMenu.classList.toggle('hide');
-//     });
-
-//     dropdown.querySelectorAll('.dropdown_menu a').forEach(item => {
-//         item.addEventListener('click', function(event) {
-//             event.preventDefault();
-//             const hr = this.getAttribute('hour');
-//             const day = this.getAttribute('day');
-//             console.log(hr);
-
-//             if (day) {
-//                 dropdownBtn.innerHTML = "Day " + day;
-//             } else if (hr) {
-//                 dropdownBtn.innerHTML = "Hour " + hr;
-//             }
-
-//             generateChart("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo", hr, day);
-//         });
-//     });
-// });
-
 
 const container2 = document.getElementById('container2');
 const candlechart2 = LightweightCharts.createChart(container2, {
@@ -132,15 +163,12 @@ const candlechart2 = LightweightCharts.createChart(container2, {
 });
 
 const stockchart2 = candlechart2.addCandlestickSeries({
-    upColor: '#26a69a',
-    downColor: '#ef5350',
-    borderVisible: true,
-    wickUpColor: '#26a69a',
-    wickDownColor: '#ef5350',
+    upColor: '#4672d2',
+    downColor: '#cf4358',
+    borderVisible: false,
+    wickUpColor: '#4672d2',
+    wickDownColor: '#cf4358',
 });
-
-
-generateChart
 
 
 generateChart2 = (apiurl) => {
@@ -204,4 +232,30 @@ generateChart2 = (apiurl) => {
     });
 }
 
-generateChart2('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo');
+generateChart2('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&month=2009-01&outputsize=full&apikey=demo');
+
+// document.querySelectorAll('.dropdown').forEach(dropdown => {
+//     const dropdownBtn = dropdown.querySelector('.dropbtn');
+//     const dropdownMenu = dropdown.querySelector('.dropdown_menu');
+
+//     dropdownBtn.addEventListener('click', () => {
+//         dropdownMenu.classList.toggle('hide');
+//     });
+
+//     dropdown.querySelectorAll('.dropdown_menu a').forEach(item => {
+//         item.addEventListener('click', function(event) {
+//             event.preventDefault();
+//             const hr = this.getAttribute('hour');
+//             const day = this.getAttribute('day');
+//             console.log(hr);
+
+//             if (day) {
+//                 dropdownBtn.innerHTML = "Day " + day;
+//             } else if (hr) {
+//                 dropdownBtn.innerHTML = "Hour " + hr;
+//             }
+
+//             generateChart("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=demo", hr, day);
+//         });
+//     });
+// });
